@@ -39,8 +39,10 @@ export default {
           } = res;
           if (status === 200) {
             console.log("login---success----");
+            // 渲染home.vue
           } else {
-            console.log("error----");
+            // 用户名/密码错误
+            this.$message.error(msg);
           }
 
           // eg
