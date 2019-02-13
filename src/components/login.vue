@@ -26,34 +26,57 @@ export default {
   methods: {
     // 登录请求
 
-    handlelogin() {
-      this.$http
-        .post(`login`, this.formdata)
-        .then(res => {
-          console.log(res);
-          const {
-            data: {
-              data,
-              meta: { msg, status }
-            }
-          } = res;
-          if (status === 200) {
-            console.log("login---success----");
-            // 渲染home.vue
-          } else {
-            // 用户名/密码错误
-            this.$message.error(msg);
-          }
+    async handlelogin() {
+      // 目前代码: 异步的结果res在一个函数里面获取的
+      // 目的: res的获取是同步
+      // const res = axios请求返回的结果
+      // console.log(res)
 
-          // eg
-          // const {per} = {per:"abc"}
-          // console.log(per)
-          // const {name:newname} = {name:'abc'}
-          // console.log(newname);
-        })
-        .catch(err => {
-          console.log(err);
+      const res = await this.$http.post(`login`, this.formdata);
+
+      console.log(res);
+      const {
+        data: {
+          data: { token },
+          meta: { msg, status }
+        }
+      } = res;
+
+      if (status === 200) {
+        // 提示: token值目前不需要关心 ,将来要用,把token永久存储
+        // localStorage(Html5新特性)
+        // (key名:要存储的数据)
+        localStorage.setItem("token", token);
+        // 渲染home.vue <- 改标识/  <- js代码编程导航$router
+        this.$router.push({
+          name: "home"
         });
+      } else {
+        // 用户名/密码错误
+        this.$message.error(msg);
+      }
+
+      /*
+      .then(res => {
+        console.log(res);
+        const {
+          data: {
+            data,
+            meta: { msg, status }
+          }
+        } = res;
+
+        if (status === 200) {
+          // 渲染home.vue <- 改标识/  <- js代码编程导航$router
+          this.$router.push({
+            name: "home"
+          });
+        } else {
+          // 用户名/密码错误
+          this.$message.error(msg);
+        }
+      });
+      */
     }
   }
 };
