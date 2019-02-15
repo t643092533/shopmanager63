@@ -31,7 +31,15 @@
               <i class="el-icon-location"></i>
               <span>用户管理</span>
             </template>
-            <el-menu-item index="1-1">
+            <!--
+              1. <router-link ></router-link> 改标识
+              2. 提供容器
+              3. 提供组件 users.vue
+              4. newVueRouter()
+              5. 配置
+              6. 挂载
+            -->
+            <el-menu-item index="users">
               <i class="el-icon-menu"></i>
               用户列表
             </el-menu-item>
@@ -95,7 +103,10 @@
           </el-submenu>
         </el-menu>
       </el-aside>
-      <el-main class="main">Main</el-main>
+      <el-main class="main">
+        <!-- 提供容器 -->
+        <router-view></router-view>
+      </el-main>
     </el-container>
   </el-container>
 </template>
