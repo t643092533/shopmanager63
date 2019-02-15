@@ -560,6 +560,24 @@ async getTableData() {
 
 #### 13-项目-用户管理-用户列表-渲染数据-用户状态开关
 
+> el-swtich 开关组件 表单元素 v-model=""
+
+```html
+<el-table-column label="用户状态" width="120">
+  <!-- 前提: 单元格内容是一个组件, 不是porp的值 -->
+  <template slot-scope="scope">
+    <!-- 内容 -->
+    <el-switch
+      v-model="scope.row.mg_state"
+      active-color="#13ce66"
+      inactive-color="#ff4949"
+    ></el-switch>
+  </template>
+</el-table-column>
+```
+
+> 当通过页面操作 点击开关->会让 mg_state 的值变化
+
 #### 14-项目-用户管理-用户列表-渲染数据-操作
 
 #### 15-项目-用户管理-用户列表-分页组件-文档-引入
