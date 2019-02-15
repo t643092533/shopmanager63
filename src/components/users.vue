@@ -89,6 +89,15 @@
       </el-table-column>
     </el-table>
     <!-- 分页 -->
+    <el-pagination
+      @size-change="handleSizeChange"
+      @current-change="handleCurrentChange"
+      :current-page="pagenum"
+      :page-sizes="[2, 4, 6, 8]"
+      :page-size="2"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="total"
+    ></el-pagination>
   </el-card>
 </template>
 
@@ -100,8 +109,8 @@ export default {
       query: "",
       // 分页功能->前提:接口必须支持分页->通过在接口url参数中类似page的参数名
       pagenum: 1,
-      pagesize: 10,
-      // 表格数据
+      pagesize: 2,
+      total: -1,
 
       list: []
     };
@@ -112,6 +121,22 @@ export default {
     this.getTableData();
   },
   methods: {
+    // 分页相关的方法
+    // 每页2条-> 每页4条 -> 按照4条发送请求
+
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.pagenum = 1;
+      this.pagesize = val;
+      this.getTableData();
+    },
+    // 当前1页 -> 点击2页 -> 获取第二页数据
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      // 根据新页码发送请求
+      this.pagenum = val;
+      this.getTableData();
+    },
     async getTableData() {
       // query	查询参数	可以为空
       // pagenum	当前页码	不能为空
@@ -125,14 +150,15 @@ export default {
           this.pagesize
         }`
       );
-      // console.log(res);
+      console.log(res);
       const {
         data,
         meta: { status, msg }
       } = res.data;
       if (status === 200) {
+        this.total = data.total;
         this.list = data.users;
-        console.log(this.list);
+        // console.log(this.list);
       }
     }
   }

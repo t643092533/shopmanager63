@@ -612,9 +612,50 @@ async getTableData() {
 
 #### 15-项目-用户管理-用户列表-分页组件-文档-引入
 
+> 分页组件 - 文档
+
+1. @size-change 每页条数改变时
+2. @current-change 原来是第一页,点击 2 页
+3. current-page 当前页码
+4. total 总条数
+
 #### 16-项目-用户管理-用户列表-分页组件-配置数据
 
+```html
+<el-pagination
+  @size-change="handleSizeChange"
+  @current-change="handleCurrentChange"
+  :current-page="pagenum"
+  :page-sizes="[2, 4, 6, 8]"
+  :page-size="2"
+  layout="total, sizes, prev, pager, next, jumper"
+  :total="total"
+></el-pagination>
+```
+
+> res 中有 total this.total=data.total
+
 #### 17-项目-用户管理-用户列表-分页组件-分页请求
+
+```js
+handleSizeChange(val) {
+      console.log(`每页 ${val} 条`);
+      this.pagenum = 1;
+      this.pagesize = val;
+      this.getTableData();
+    },
+    // 当前1页 -> 点击2页 -> 获取第二页数据
+    handleCurrentChange(val) {
+      console.log(`当前页: ${val}`);
+      // 根据新页码发送请求
+      this.pagenum = val;
+      this.getTableData();
+    },
+
+```
+
+> pagenum1 pagesize2 -> 获取数据库中前两条数据
+> pagenum=3 pagesize=3 -> 获取数据库中第 7/8/9 条数据
 
 #### 18-项目-用户管理-用户列表-搜索用户
 
