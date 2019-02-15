@@ -580,6 +580,36 @@ async getTableData() {
 
 #### 14-项目-用户管理-用户列表-渲染数据-操作
 
+> 如果单元格内容不是 porp, 加 tempalte 设置 slot-scope
+
+```html
+<el-table-column label="操作" width="200">
+  <template slot-scope="scope">
+    <el-button
+      type="primary"
+      icon="el-icon-edit"
+      circle
+      size="mini"
+      plain
+    ></el-button>
+    <el-button
+      type="danger"
+      icon="el-icon-delete"
+      circle
+      size="mini"
+      plain
+    ></el-button>
+    <el-button
+      type="success"
+      icon="el-icon-check"
+      circle
+      size="mini"
+      plain
+    ></el-button>
+  </template>
+</el-table-column>
+```
+
 #### 15-项目-用户管理-用户列表-分页组件-文档-引入
 
 #### 16-项目-用户管理-用户列表-分页组件-配置数据
