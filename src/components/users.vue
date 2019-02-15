@@ -16,8 +16,14 @@
     <!-- 搜索框 -->
     <el-row class="searchBox">
       <el-col>
-        <el-input class="searchInput" placeholder="请输入内容" v-model="query">
-          <el-button slot="append" icon="el-icon-search"></el-button>
+        <el-input
+          @clear="getAllUsers()"
+          clearable
+          class="searchInput"
+          placeholder="请输入内容"
+          v-model="query"
+        >
+          <el-button @click="searchUser()" slot="append" icon="el-icon-search"></el-button>
         </el-input>
         <el-button type="primary">添加用户</el-button>
       </el-col>
@@ -121,6 +127,19 @@ export default {
     this.getTableData();
   },
   methods: {
+    // 清空时获取所有用户
+    getAllUsers() {
+      // 此时 query查询参数已经是''
+
+      this.getTableData();
+    },
+    // 搜索用户
+    searchUser() {
+      // 输入框组件->在组件文本清空时->做一些事儿
+      // query数据默认 ''
+      this.pagenum = 1;
+      this.getTableData();
+    },
     // 分页相关的方法
     // 每页2条-> 每页4条 -> 按照4条发送请求
 

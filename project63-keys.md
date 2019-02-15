@@ -659,6 +659,27 @@ handleSizeChange(val) {
 
 #### 18-项目-用户管理-用户列表-搜索用户
 
+1. 搜索用户
+2. 清空
+   > 不要忘记 this.pagenum=1
+
+```js
+
+// 清空时获取所有用户
+    getAllUsers() {
+      // 此时 query查询参数已经是''
+
+      this.getTableData();
+    },
+    // 搜索用户
+    searchUser() {
+      // 输入框组件->在组件文本清空时->做一些事儿
+      // query数据默认 ''
+      this.pagenum = 1;
+      this.getTableData();
+    },
+```
+
 #### 19-项目-用户管理-用户列表-添加用户-显示对话框
 
 #### 20-项目-用户管理-用户列表-添加用户-发送请求
