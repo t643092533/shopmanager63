@@ -34,9 +34,10 @@ export default {
 
       const res = await this.$http.post(`login`, this.formdata);
       // console.log(res);
+      // 当username和p错误 -> res中data->null-> 对象解构赋值
       const {
         data: {
-          data: { token },
+          data,
           meta: { msg, status }
         }
       } = res;
@@ -45,7 +46,7 @@ export default {
         // 提示: token值目前不需要关心 ,将来要用,把token永久存储
         // localStorage(Html5新特性)
         // (key名:要存储的数据)
-        localStorage.setItem("token", token);
+        localStorage.setItem("token", data.token);
         // 渲染home.vue <- 改标识/  <- js代码编程导航$router
         this.$router.push({
           name: "home"
