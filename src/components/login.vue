@@ -33,8 +33,7 @@ export default {
       // console.log(res)
 
       const res = await this.$http.post(`login`, this.formdata);
-
-      console.log(res);
+      // console.log(res);
       const {
         data: {
           data: { token },
@@ -55,28 +54,6 @@ export default {
         // 用户名/密码错误
         this.$message.error(msg);
       }
-
-      /*
-      .then(res => {
-        console.log(res);
-        const {
-          data: {
-            data,
-            meta: { msg, status }
-          }
-        } = res;
-
-        if (status === 200) {
-          // 渲染home.vue <- 改标识/  <- js代码编程导航$router
-          this.$router.push({
-            name: "home"
-          });
-        } else {
-          // 用户名/密码错误
-          this.$message.error(msg);
-        }
-      });
-      */
     }
   }
 };
