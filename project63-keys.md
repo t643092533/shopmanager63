@@ -682,14 +682,36 @@ handleSizeChange(val) {
 
 #### 19-项目-用户管理-用户列表-添加用户-显示对话框
 
-#### 20-项目-用户管理-用户列表-添加用户-发送请求
+> 点击按钮->打开对话框
 
-#### 21-项目-用户管理-用户列表-删除用户-打开确认框
-
-#### 22-项目-用户管理-用户列表-删除用户-处理响应
-
-#### 23-项目-用户管理-用户列表-编辑用户-显示对话框
-
-#### 24-项目-用户管理-用户列表-编辑用户-显示编辑数据
-
-#### 25-项目-用户管理-用户列表-编辑用户-发送请求
+````html
+<el-dialog title="收货地址" :visible.sync="dialogFormVisibleAdd">
+  <el-form label-position="left" label-width="80px" :model="formdata">
+    <el-form-item label="用户名">
+      <el-input v-model="formdata.username"></el-input>
+    </el-form-item>
+    <el-form-item label="密码">
+      <el-input v-model="formdata.password"></el-input>
+    </el-form-item>
+    <el-form-item label="邮箱">
+      <el-input v-model="formdata.email"></el-input>
+    </el-form-item>
+    <el-form-item label="电话">
+      <el-input v-model="formdata.mobile"></el-input>
+    </el-form-item>
+  </el-form>
+  <div slot="footer" class="dialog-footer">
+    <el-button @click="dialogFormVisibleAdd = false">取 消</el-button>
+    <el-button type="primary" @click="dialogFormVisibleAdd = false"
+      >确 定</el-button
+    >
+  </div>
+</el-dialog>
+``` 1. 复制代码 2. 提供/配置属性或者方法 3. 使用 ####
+20-项目-用户管理-用户列表-添加用户-发送请求 ####
+21-项目-用户管理-用户列表-删除用户-打开确认框 ####
+22-项目-用户管理-用户列表-删除用户-处理响应 ####
+23-项目-用户管理-用户列表-编辑用户-显示对话框 ####
+24-项目-用户管理-用户列表-编辑用户-显示编辑数据 ####
+25-项目-用户管理-用户列表-编辑用户-发送请求
+````
