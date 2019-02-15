@@ -30,12 +30,49 @@
       prop的值控制的是该列中每一行单元格的内容
 
     -->
+    <!--
+      id: 500
+      username: "admin"
+      email: "adsfad@qq.com"
+      mobile: "12345678"
+      create_time: 1486720211
+
+      mg_state: true
+      role_name: "主管"
+    -->
     <el-table :data="list" style="width: 100%">
-      <el-table-column prop="name" label="#" width="80"></el-table-column>
-      <el-table-column prop="name" label="姓名" width="100"></el-table-column>
-      <el-table-column prop="name" label="邮箱" width="140"></el-table-column>
-      <el-table-column prop="name" label="电话" width="140"></el-table-column>
-      <el-table-column prop="name" label="创建日期" width="200"></el-table-column>
+      <el-table-column prop="id" label="#" width="80"></el-table-column>
+      <el-table-column prop="username" label="姓名" width="100"></el-table-column>
+      <el-table-column prop="email" label="邮箱" width="140"></el-table-column>
+      <el-table-column prop="mobile" label="电话" width="140"></el-table-column>
+
+      <!-- 过滤器fmtdate
+        1. v-bind:
+        2. {{create_time|fmtdate}}
+      -->
+      <!-- 1. 思路 直接给prop赋值 不行 -->
+      <!-- <el-table-column prop="create_time | fmtdate" label="创建日期" width="200"></el-table-column> -->
+      <!-- 2. 思路  可以实现效果 但是error-->
+      <!-- <el-table-column prop="create_time" label="创建日期" width="200">
+        {{create_time|fmtdate}}
+      </el-table-column>-->
+      <!-- 3.
+      前提: 单元格内容不是prop的值,
+      3.1 给单元格内容外层加template
+      3.2 给template设置slot-scope
+      3.3 slot-scope的值 自动绑定为外层数据el-table :data="list"
+      3.4 在template内部通过list.row 自动取出数组list中每个对象
+      3.5 list.row.属性create_time
+      注意: row是固定写法
+
+      -->
+      <el-table-column label="创建日期" width="200">
+        <template slot-scope="scope">
+          <!-- 内层 list.row 表示的是list的每个对象-->
+          {{scope.row.create_time|fmtdate}}
+        </template>
+      </el-table-column>
+
       <el-table-column prop="name" label="用户状态" width="120"></el-table-column>
       <el-table-column prop="name" label="操作" width="200"></el-table-column>
     </el-table>
@@ -51,7 +88,7 @@ export default {
       query: "",
       // 分页功能->前提:接口必须支持分页->通过在接口url参数中类似page的参数名
       pagenum: 1,
-      pagesize: 2,
+      pagesize: 10,
       // 表格数据
 
       list: []
@@ -76,7 +113,15 @@ export default {
           this.pagesize
         }`
       );
-      console.log(res);
+      // console.log(res);
+      const {
+        data,
+        meta: { status, msg }
+      } = res.data;
+      if (status === 200) {
+        this.list = data.users;
+        console.log(this.list);
+      }
     }
   }
 };

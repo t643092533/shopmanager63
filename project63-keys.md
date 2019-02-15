@@ -522,7 +522,41 @@ async getTableData() {
 
 #### 11-项目-用户管理-用户列表-渲染数据-一般数据
 
+> 单元格中的数据两类
+
+1. 一般数据 prop 的属性值
+2. 特殊数据 不是 prop 的属性值 而是一些组件
+
+```html
+<el-table-column prop="id" label="#" width="80"></el-table-column>
+<el-table-column prop="username" label="姓名" width="100"></el-table-column>
+<el-table-column prop="email" label="邮箱" width="140"></el-table-column>
+<el-table-column prop="mobile" label="电话" width="140"></el-table-column>
+<el-table-column
+  prop="create_time"
+  label="创建日期"
+  width="200"
+></el-table-column>
+```
+
 #### 12-项目-用户管理-用户列表-渲染数据-日期格式处理
+
+> 日期需要处理 -> 过滤器 -> 两类(全局 Vue.filter 和局部)三步->1. v-bind 后面 2{{msg | 名字}}
+> 前提:如果单元格数据不是 prop 的值,此时
+
+1. 给内容外层加 template
+2. 设置 template 的 slot-scope="scope"
+3. 内部通过 scope.row.属性名访问数据
+   > 注意: "scope"可以随便命名,自动找外层数据 list
+
+```html
+<el-table-column label="创建日期" width="200">
+  <template slot-scope="scope">
+    <!-- 内层 list.row 表示的是list的每个对象-->
+    {{scope.row.create_time|fmtdate}}
+  </template>
+</el-table-column>
+```
 
 #### 13-项目-用户管理-用户列表-渲染数据-用户状态开关
 
